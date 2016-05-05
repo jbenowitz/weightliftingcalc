@@ -12,8 +12,10 @@ angular
   .module('weightcalcApp', [
     'ngAnimate',
     'ngResource',
+    'ngAria',
     'ngRoute',
-    'ngSanitize'
+    'ngSanitize',
+    'ngMaterial'  
   ])
   .config(function ($routeProvider) {
     $routeProvider

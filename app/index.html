@@ -11,7 +11,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- <link rel="stylesheet" href="styles/main.css"> -->
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
 
     <!-- endbuild -->
@@ -22,7 +22,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <nav>
+<!--     <nav>
       <div class="nav-wrapper">
         <a href="#/"
            class="brand-logo right">
@@ -33,33 +33,27 @@
           <li><a href="#/about">About</a></li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
 
-
-
-    <div class="container">
-      <div ng-view=""></div>
+    <div layout="column" layout-fill>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span>Weightlifting Calculator</span>
+          <!-- fill up the space between left and right area -->
+          <span flex></span>
+          <md-button>
+            <a href="#/">Calculator</a>
+            <a href="#/about">About</a>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-content>
+        <div ng-view=""></div>
+      </md-content>
     </div>
 
-
-
-
-
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <!-- endbuild -->
+    <script src="scripts/vendors.js"></script>
+    <script src="scripts/main.js"></script>
 
     <!-- Angular Material Library -->
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>

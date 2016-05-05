@@ -1,25 +1,57 @@
-<div>
-  <form name="calc">
-    <label ng-repeat="barType in mainCtrl.bars">
-      <input type="radio"
-             ng-model="mainCtrl.bar"
-             value="barType">
-      {{barType.name}}
-    </label>
+<div layout="column">
 
-    <!--<label>-->
-      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="red">-->
-      <!--Red-->
-    <!--</label>-->
-    <!--<label>-->
-      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="green">-->
-      <!--Green-->
-    <!--</label><br/>-->
-    <!--<label>-->
-      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="blue">-->
-      <!--Blue-->
-    <!--</label>-->
-  </form>
+<div flex="10" layout="row">
+  <div flex="80"></div>
+  <div flex="10">
+    <md-button class="md-raised" 
+               ng-click="mainCtrl.clear()"> 
+               Clear 
+    </md-button>
+  </div>
+  <h4 flex="10" class="bold">lbs</h4>
+</div>
 
-  {{mainCtrl.bar}}
+<div flex="5" 
+     layout="row">
+
+  <div flex="90">
+    <md-radio-group ng-model="mainCtrl.bar" 
+                    layout="row">
+      <md-radio-button ng-repeat="barType in mainCtrl.bars" 
+                       ng-value="barType" 
+                       aria-label="{{ barType.name }}">
+             {{ barType.name }}
+      </md-radio-button>
+    </md-radio-group>
+  </div>
+
+  <div flex="10">
+    {{ mainCtrl.bar.weight }}
+  </div>
+</div>
+
+<div flex="5" 
+     layout="row"
+     ng-repeat="weightType in mainCtrl.weights">
+
+     <div flex="90">
+          <md-input-container>
+            <label>{{ weightType.name }} Weights</label>
+            <input type="number" ng-model="weightType.amount">
+         </md-input-container>
+     </div>
+
+     <div flex="10">
+       {{ weightType.getWeight() }}
+     </div>
+</div>
+
+
+<div flex="10">
+  <div flex="50">Total lbs: </div>
+  <div flex="50">{{ mainCtrl.getTotalPounds() }}</div>
+</div>
+
+
+
 </div>

@@ -39,9 +39,9 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:jshint:all', 'concat'],
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: '<%= connect.options.dist %>'
         }
       },
       jsTest: {
@@ -50,14 +50,14 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer:server']
+        tasks: ['compass:server', 'concat']
       },
       gruntfile: {
         files: ['Gruntfile.js']
       },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: '<%= connect.options.dist %>'
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
@@ -71,6 +71,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
+        base: 'dist',
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
         livereload: 35729
@@ -78,6 +79,7 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
+          base: 'dist',
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -113,7 +115,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
           open: true,
-          base: '<%= yeoman.dist %>'
+          base: 'dist'
         }
       }
     },
@@ -382,6 +384,25 @@ module.exports = function (grunt) {
       }
     },
 
+    //concat scripts and then vendors
+    concat: {
+      main: {
+        src: ['app/scripts/**/*.js', '.tmp/templateCache.js'],
+        dest: '<%= yeoman.dist %>/scripts/main.js',
+      },
+      vendors: {
+        src: [
+        "bower_components/angular/angular.js", 
+        "bower_components/angular-animate/angular-animate.js", 
+        "bower_components/angular-resource/angular-resource.js", 
+        "bower_components/angular-route/angular-route.js", 
+        "bower_components/angular-sanitize/angular-sanitize.js", 
+        "bower_components/angular-aria/angular-aria.js", 
+        "bower_components/lodash/lodash.js"],
+        dest: '<%= yeoman.dist %>/scripts/vendors.js',
+      },
+    },
+
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -409,6 +430,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      }, 
+      index: {
+        expand: true,
+        flatten: true,
+        dest: '<%=yeoman.dist%>',
+        src: 'app/index.html'
       }
     },
 
@@ -446,8 +473,11 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-      'autoprefixer:server',
-      'connect:livereload',
+      // 'autoprefixer:server',
+      'ngtemplates',
+      'concat',
+      'copy:index',
+      'connect:dist',
       'watch'
     ]);
   });
@@ -481,7 +511,8 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin', 
+    'concat'
   ]);
 
   grunt.registerTask('default', [
