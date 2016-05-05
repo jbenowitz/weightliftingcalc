@@ -1,0 +1,25 @@
+<div>
+  <form name="calc">
+    <label ng-repeat="barType in mainCtrl.bars">
+      <input type="radio"
+             ng-model="mainCtrl.bar"
+             value="barType">
+      {{barType.name}}
+    </label>
+
+    <!--<label>-->
+      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="red">-->
+      <!--Red-->
+    <!--</label>-->
+    <!--<label>-->
+      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="green">-->
+      <!--Green-->
+    <!--</label><br/>-->
+    <!--<label>-->
+      <!--<input type="radio" ng-model="mainCtrl.bar.name" value="blue">-->
+      <!--Blue-->
+    <!--</label>-->
+  </form>
+
+  {{mainCtrl.bar}}
+</div>
